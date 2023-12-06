@@ -1,16 +1,16 @@
-from test_data.data import *
-from screenplay.abilities import UseTheBrowser
-from screenplay.actions import Click, Write, Navigate, Verify
-from screenplay.resolutions import IsVisible
-from screenplay.questions import Element
-from screenplay.actor import Actor
-from locators.login_page import (
+from src.test_data.data import *
+from src.screenplay.abilities import UseTheBrowser
+from src.screenplay.actions import Click, Write, Navigate, Verify
+from src.screenplay.resolutions import IsVisible
+from src.screenplay.questions import Element
+from src.screenplay.actor import Actor
+from src.locators.login_page import (
     USERNAME_TEXTBOX,
     PASSWORD_TEXTBOX,
     CONTINUE_BUTTON,
     LOGIN_BUTTON,
 )
-from locators.trello_delete_page import (
+from src.locators.trello_delete_page import (
     HORIZONTAL_MENU_BUTTON,
     CLOSE_BOARD_BUTTON,
     CONFIRM_CLOSE_BUTTON,
@@ -19,7 +19,7 @@ from locators.trello_delete_page import (
     BOARD_DELETED_MESSAGE,
     BOARD_NAME_TEXTBOX,
 )
-from locators.trello_home_page import (
+from src.locators.trello_home_page import (
     CREATE_BOARD_BUTTON,
     CREATE_BUTTON,
     CREATE_BOARD_SUBMIT_BUTTON,

@@ -1,6 +1,6 @@
-from locators.login_page import *
-from locators.trello_home_page import *
-from screenplay.actions import Click, Write
+from src.locators.login_page import *
+from src.locators.trello_home_page import *
+from src.screenplay.actions import Click, Write
 
 
 class Login:

@@ -1,5 +1,5 @@
-from locators.trello_delete_page import *
-from screenplay.actions import Click
+from src.locators.trello_delete_page import *
+from src.screenplay.actions import Click
 
 
 class DeleteBoard:

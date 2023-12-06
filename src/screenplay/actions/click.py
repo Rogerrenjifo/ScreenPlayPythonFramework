@@ -1,5 +1,5 @@
-from screenplay.abilities.UseTheBrowser import UseTheBrowser
 from selenium.webdriver.common.by import By
+from src.screenplay.abilities.UseTheBrowser import UseTheBrowser
 
 
 class Click:

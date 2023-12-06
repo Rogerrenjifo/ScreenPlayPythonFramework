@@ -1,5 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
-from screenplay.abilities.UseTheBrowser import UseTheBrowser
+from src.screenplay.abilities.UseTheBrowser import UseTheBrowser
 
 
 class Verify:
@@ -7,6 +7,7 @@ class Verify:
         self.question = question
         self.resolution = resolution
 
+    @classmethod
     def the(cls, question, resolution):
         return cls(question, resolution)
 
