@@ -1,11 +1,11 @@
-from src.screenplay.abilities.UseTheBrowser import UseTheBrowser
+from src.screenplay.abilities import UseTheBrowser
 
 
 class Write:
     def __init__(self, text) -> None:
         self.text = text
         self.target = None
-
+        self.locator = None
     @classmethod
     def the_text(cls, text: str):
         return cls(text=text)

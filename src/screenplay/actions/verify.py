@@ -1,5 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
-from src.screenplay.abilities.UseTheBrowser import UseTheBrowser
+from src.screenplay.abilities import UseTheBrowser
 
 
 class Verify:

@@ -25,6 +25,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      
+      - name: Set Python path environment variable
+        run: echo "PYTHONPATH=${{ runner.workspace }}" >> $GITHUB_ENV
 
       - name: Analysing the code with pylint
         run: |
@@ -32,10 +35,10 @@ jobs:
 
       - name: execute the test case and code coverage
         run: |
-          pytest --cov=src --cov-report term-missing --cov-fail-under=${{vars.MINIMUN_COVERAGE}}
+          pytest --cov=src/test/unittests --cov-report term-missing --cov-fail-under=${{vars.MINIMUN_COVERAGE}}
           pytest --html=pytest_report/report.html
           coverage html
-
+        # run: echo build and image of the tests
   # build:
   #   needs: code_analysis
   #   runs-on: ubuntu-latest
@@ -68,7 +71,7 @@ jobs:
     needs: code_analysis
     runs-on: ubuntu-latest
     steps:
-      - run: echobuild and image of the tests
+      - run: echo build and image of the tests
     
   deploy-server-on-googlecloud:
     needs: build

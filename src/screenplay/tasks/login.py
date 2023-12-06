@@ -1,5 +1,5 @@
-from src.locators.login_page import *
-from src.locators.trello_home_page import *
+from src.locators.login_page import USERNAME_TEXTBOX,PASSWORD_TEXTBOX, CONTINUE_BUTTON, LOGIN_BUTTON
+from src.locators.trello_home_page import TRELLO_LOGIN_BUTTON
 from src.screenplay.actions import Click, Write
 
 

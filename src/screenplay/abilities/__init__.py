@@ -1,4 +1,4 @@
-from .UseTheBrowser import UseTheBrowser
+from .use_the_browser import UseTheBrowser
 
 
 __all__ = [

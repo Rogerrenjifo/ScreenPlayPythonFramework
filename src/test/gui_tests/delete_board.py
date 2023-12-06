@@ -1,4 +1,5 @@
-from src.test_data.data import *
+from dotenv import load_dotenv
+from src.test_data.data import BOARD_NAME,PASSWORD, TRELLO_HOME_PAGE, USERNAME
 from src.screenplay.abilities import UseTheBrowser
 from src.screenplay.actions import Click, Write, Navigate, Verify
 from src.screenplay.resolutions import IsVisible
@@ -27,7 +28,6 @@ from src.locators.trello_home_page import (
     USER_BUTTON,
     BOARD_TITLE_TEXTBOX,
 )
-from dotenv import load_dotenv
 
 
 load_dotenv()

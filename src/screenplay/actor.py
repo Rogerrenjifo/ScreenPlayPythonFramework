@@ -16,11 +16,12 @@ class Actor:
         for a in self.abilities:
             if isinstance(a, ability):
                 return a
-    
+            return None
+
     def attempts_to(self, *actions) -> None:
         for action in actions:
             self.perform(action)
-    
+
     def perform(self, action) -> None:
         """Perform an Action."""
         action.perform_as(self)

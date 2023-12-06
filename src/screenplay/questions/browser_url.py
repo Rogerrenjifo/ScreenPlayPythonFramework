@@ -1,4 +1,4 @@
-from src.screenplay.abilities.UseTheBrowser import UseTheBrowser
+from src.screenplay.abilities import UseTheBrowser
 
 
 class BrowserUrl:

@@ -1,5 +1,5 @@
 from selenium.webdriver.common.action_chains import ActionChains
-from src.screenplay.abilities.UseTheBrowser import UseTheBrowser
+from src.screenplay.abilities import UseTheBrowser
 
 
 class Move:
