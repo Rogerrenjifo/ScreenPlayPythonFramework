@@ -50,8 +50,10 @@ please refer to the following links:
 > https://screenpy-selenium-docs.readthedocs.io/en/latest/index.html
 
 ### configuration to pylint report 
-
 > https://github.com/Exirel/pylint-json2html
+
+### Configuration of api request trigger(dispatch events)
+> https://docs.github.com/en/rest/actions/workflows?apiVersion=2022-11-28#create-a-workflow-dispatch-event
 
 ## PoC Overview
 
