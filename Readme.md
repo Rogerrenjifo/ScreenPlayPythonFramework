@@ -49,6 +49,9 @@ please refer to the following links:
 > https://screenpy-docs.readthedocs.io/en/latest/
 > https://screenpy-selenium-docs.readthedocs.io/en/latest/index.html
 
+### configuration to pylint report 
+
+> https://github.com/Exirel/pylint-json2html
 
 ## PoC Overview
 
@@ -67,3 +70,5 @@ I've provided two test cases:
 1. The first test case utilizes individual actions to perform the scenarios.
 2. The second test case demonstrates how tasks can be used to combine actions for more complex scenarios, 
 specifically for logging in, creating a board, and then deleting it.
+
+

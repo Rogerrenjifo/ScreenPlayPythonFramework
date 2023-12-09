@@ -81,7 +81,7 @@ limit-inference-results=100
 
 # List of plugins (as comma separated values of python module names) to load,
 # usually to register additional checkers.
-load-plugins=
+load-plugins=pylint_json2html
 
 # Pickle collected data for later comparisons.
 persistent=yes
@@ -493,7 +493,7 @@ msg-template=
 # json2 (improved json format), json (old json format) and msvs (visual
 # studio). You can also give a reporter class, e.g.
 # mypackage.mymodule.MyReporterClass.
-#output-format=
+output-format=jsonextended
 
 # Tells whether to display a full report or only the messages.
 reports=no

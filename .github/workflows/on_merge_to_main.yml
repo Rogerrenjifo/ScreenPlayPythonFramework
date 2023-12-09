@@ -32,14 +32,22 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint src/
+          mkdir -p reports/pylint_report
+          pylint src/ | pylint-json2html -f jsonextended -o reports/pylint_report/pylint.html
 
       - name: execute the test case and code coverage
         run: |
           pytest --cov=src/test/unittests --cov-report term-missing --cov-fail-under=${{vars.MINIMUN_COVERAGE}}
-          pytest --html=pytest_report/report.html
-          coverage html
-        # run: echo build and image of the tests
+          pytest --html=reports/pytest_report/report.html
+          coverage html -d reports/coverage_report
+
+      - name: Generate artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: reports
+          path: reports
+
  
   build:
     needs: code_analysis

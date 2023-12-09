@@ -1,8 +1,7 @@
 import unittest
-
-
 from unittest.mock import MagicMock
 from src.screenplay.actor import Actor
+
 
 class TestActor(unittest.TestCase):
 
