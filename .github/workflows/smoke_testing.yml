@@ -1,4 +1,4 @@
-name: Run the smoke tests
+name: Run test cases / test cases runners
 env: 
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
@@ -24,43 +24,36 @@ on:
         required: false
 
 jobs:
-  build_the_environment:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo "Log level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
-        env:
-          LEVEL: ${{ inputs.logLevel }}
-          TAGS: ${{ inputs.tags }}
-          ENVIRONMENT: ${{ inputs.environment }}
-
   execute_test_cases:
     runs-on: ubuntu-latest
-
-    needs: build_the_environment
+    environment: dev
     steps:
-      - run: |
-          echo "Log level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
-        env:
-          LEVEL: ${{ inputs.logLevel }}
-          TAGS: ${{ inputs.tags }}
-          ENVIRONMENT: ${{ inputs.environment }}
+      - name: Clone the repository and set the branch
+        uses: actions/checkout@v3
 
-      - run: |
-          echo "running test cases"
-          echo "execution finished successfully, building report"
-          echo "test report of smoke testing" > report.html
-  
-      - uses: actions/upload-artifact@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+
+      - name: Deploy Selenium Grid containers
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: "./docker-compose.yaml"
+      
+      - name: Execute Test Cases
+        run: |
+          export PYTHONPATH=$PWD
+          pip install -r requirements.txt
+          docker container ls
+          python src/test/gui_tests/create_board.py
+      
+      - name: Generate The artifacts report
+        uses: actions/upload-artifact@v3
         with:
           name: my-artifact
           path: report.html
 
-      - name: Send Slack Notification
-        uses: keithalpichi/slack-action@x.y.z
+      - name: Send report to Slack
+        name: slack-send
+        uses: slackapi/slack-github-action@v1.24.0
         with:
-          template: plain2
+          channel-id:

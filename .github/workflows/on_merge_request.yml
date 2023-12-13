@@ -1,0 +1,107 @@
+name: Analize code, security and build an image
+
+on:
+    pull_request:
+      branches:
+        - '*'
+        - '!develop'
+        - '!main'
+
+env:
+  USERNAME: ${{secrets.TRELLO_USER }}
+  PASSWORD: ${{secrets.TRELLO_PASSWORD }}
+
+
+jobs:
+  code_analysis:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Clone the repository and set the branch
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Analysing the code with pylint
+        run: |
+          mkdir -p reports/pylint_report
+          pylint src/ | pylint-json2html -f jsonextended -o reports/pylint_report/pylint.html
+
+      - name: Execute the unit tests and code coverage
+        run: |
+          pytest --cov=src/test/unittests --cov-report term-missing --cov-fail-under=${{vars.MINIMUN_COVERAGE}}
+          pytest --html=reports/pytest_report/report.html
+          coverage html -d reports/coverage_report
+
+      - name: Generate artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: reports
+          path: reports
+    
+  execute_test_cases_in_Edge:
+    environment: dev
+    needs: code_analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repository and set the branch
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+      
+      - name: Deploy Selenium Grid containers
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: "./docker-compose.yaml"
+      
+      - name: Execute smoke test cases
+        run: |
+          export PYTHONPATH=$PWD
+          pip install -r requirements.txt
+          docker container ls
+          python src/test/gui_tests/create_board.py
+      
+      - name: Generate The artifacts report
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: report.html
+
+  execute_test_cases_in_Chrome:
+    environment: dev
+    needs: code_analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repository and set the branch
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v3
+      
+      - name: Deploy Selenium Grid containers
+        uses: isbang/compose-action@v1.5.1
+        with:
+          compose-file: "./docker-compose.yaml"
+      
+      - name: Execute smoke test cases
+        run: |
+          export PYTHONPATH=$PWD
+          pip install -r requirements.txt
+          docker container ls
+          python src/test/gui_tests/create_board.py
+      
+      - name: Generate The artifacts report
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: report.html
