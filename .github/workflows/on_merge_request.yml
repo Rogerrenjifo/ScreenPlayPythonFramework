@@ -1,11 +1,8 @@
 name: Analize code, security and build an image
 
 on:
-    pull_request:
-      branches:
-        - '*'
-        - '!develop'
-        - '!main'
+  pull_request:
+    types: [opened, reopened]
 
 env:
   USERNAME: ${{secrets.TRELLO_USER }}
