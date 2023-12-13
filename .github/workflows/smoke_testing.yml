@@ -52,8 +52,8 @@ jobs:
           name: my-artifact
           path: report.html
 
-      - name: Send report to Slack
-        name: slack-send
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          channel-id:
+      # - name: Send report to Slack
+      #   name: slack-send
+      #   uses: slackapi/slack-github-action@v1.24.0
+      #   with:
+      #     channel-id:
