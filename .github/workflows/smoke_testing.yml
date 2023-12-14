@@ -1,6 +1,9 @@
-name: Run test cases / test cases runners
+name: Execute Test Cases
 env: 
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  USERNAME: ${{secrets.TRELLO_USER }}
+  PASSWORD: ${{secrets.TRELLO_PASSWORD }}
+
 
 on:
   workflow_dispatch:
@@ -29,17 +32,21 @@ jobs:
     environment: dev
     steps:
       - name: Clone the repository and set the branch
+        id: Clone_the_repository_and_set_the_branch
         uses: actions/checkout@v3
 
       - name: Set up Python 3.11
+        id: Set_up_Python_311
         uses: actions/setup-python@v3
 
       - name: Deploy Selenium Grid containers
+        id: Deploy_Selenium_Grid_containers
         uses: isbang/compose-action@v1.5.1
         with:
           compose-file: "./docker-compose.yaml"
       
       - name: Execute Test Cases
+        id: Execute_Test_Cases
         run: |
           export PYTHONPATH=$PWD
           pip install -r requirements.txt
@@ -47,13 +54,17 @@ jobs:
           python src/test/gui_tests/create_board.py
       
       - name: Generate The artifacts report
+        id: Generate_The_artifacts_report
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
           path: report.html
 
-      # - name: Send report to Slack
-      #   name: slack-send
-      #   uses: slackapi/slack-github-action@v1.24.0
-      #   with:
-      #     channel-id:
+      - name: Send report to Slack
+        id: Send_report_to_Slack
+        uses: act10ns/slack@v2
+        with:
+          status: ${{job.status}}
+          steps: ${{ toJson(steps) }}
+          channel: '#genetal'
+        if: always()
