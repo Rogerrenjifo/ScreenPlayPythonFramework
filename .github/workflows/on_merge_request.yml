@@ -2,7 +2,7 @@ name: Analize code, security and build an image
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, edited]
 
 env:
   USERNAME: ${{secrets.TRELLO_USER }}
