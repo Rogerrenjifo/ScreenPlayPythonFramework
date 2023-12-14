@@ -52,8 +52,10 @@ jobs:
           name: my-artifact
           path: report.html
 
-      # - name: Send report to Slack
-      #   name: slack-send
-      #   uses: slackapi/slack-github-action@v1.24.0
-      #   with:
-      #     channel-id:
+      - name: Send report to Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          status: ${{job.status}}
+          steps: ${{ toJson(steps) }}
+          channel: '#genetal'
+        if: always()
