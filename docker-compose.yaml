@@ -2,9 +2,7 @@ version: "3"
 services:
   chrome:
     image: selenium/node-chrome:4.16.1-20231208
-    shm_size: 2gb
-    volumes:
-      - ./selenium_server_deploy.jar:/opt/selenium/selenium-server.jar
+    shm_size: 2gbr
     depends_on:
       - selenium-hub
     environment:
@@ -25,8 +23,6 @@ services:
   firefox:
     image: selenium/node-firefox:4.16.1-20231208
     shm_size: 2gb
-    volumes:
-      - ./selenium_server_deploy.jar:/opt/selenium/selenium-server.jar
     depends_on:
       - selenium-hub
     environment:
